@@ -2,7 +2,7 @@ import {action, makeObservable, observable} from "mobx";
 import axios from "axios";
 
 class NewsStore {
-    hackerNewsApiUrl = "https://hacker-news.firebaseio.com/v0/topstories.json"
+    hackerNewsApiUrl = 'https://hacker-news.firebaseio.com/v0/topstories.json'
     getArticleApiUrl = (itemNumber) => `https://hacker-news.firebaseio.com/v0/item/${itemNumber}.json`
     news = []
     NEWS_LIMIT = 100
@@ -12,6 +12,7 @@ class NewsStore {
             news: observable,
             fetchNews: action,
             fetchArticle: action,
+            setNews: action,
             addArticle: action
         })
     }
@@ -19,7 +20,7 @@ class NewsStore {
     async fetchNews() {
         const response = await axios.get(this.hackerNewsApiUrl)
         let data = response.data.slice(0, this.NEWS_LIMIT)
-        this.news = []
+        this.setNews([])
 
         for (const articleId of data) {
             const article =  await this.fetchArticle(articleId)
@@ -34,6 +35,10 @@ class NewsStore {
 
     addArticle(article) {
         this.news.push(article)
+    }
+
+    setNews(news) {
+        this.news = news
     }
 }
 

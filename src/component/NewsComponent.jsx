@@ -2,24 +2,29 @@ import React from "react";
 import { useEffect } from "react";
 import { observer } from "mobx-react-lite";
 import NewsStore from "../store/NewsStore";
+import ArticleComponent from "./ArticleComponent";
+import {Container} from "@mui/material";
 
-export const NewsComponent = observer(() => {
+const NewsComponent = observer(() => {
   useEffect(() => {
-    NewsStore.fetchNews()
+    NewsStore.fetchNews().catch((error) => {
+      console.log(error)
+    })
   }, []);
 
 
   return (
-    <div>
+    <Container>
       <button onClick={() => {NewsStore.fetchNews()}}>Click</button>
       {NewsStore.news.map((article) => {
         return(
-          <div key={article.id}>
-            <a target={"_blank"} href={article.url}>{article.title}</a>
-          </div>
+          <ArticleComponent
+            {...article}
+            key={article.id}
+          />
         )
       })}
-    </div>
+    </Container>
   )
 })
 
