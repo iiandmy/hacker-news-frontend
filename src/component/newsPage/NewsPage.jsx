@@ -43,7 +43,10 @@ const NewsPage = observer(() => {
         <Container>
         </Container>
         <Container>
-          {NewsStore.news.map((article) => {
+          {NewsStore.news
+            .slice()
+            .sort((a1, a2) => { return a1.time > a2.time ? -1 : 1 })
+            .map((article) => {
             return(
               <ArticleComponent
                 {...article}
