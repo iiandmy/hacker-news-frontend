@@ -7,3 +7,10 @@ export const getFormattedDate = (date) => {
 
   return `${hours}:${minutes} ${day}.${month}.${year}`
 }
+
+export const loadingCircleFormat = {
+  display: 'flex', 
+  justifyContent: 'center',
+  alignItems: 'center', 
+  marginTop: "2rem"
+}

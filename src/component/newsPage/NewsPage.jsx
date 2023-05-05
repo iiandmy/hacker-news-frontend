@@ -48,10 +48,12 @@ const NewsPage = observer(() => {
             .sort((a1, a2) => { return a1.time > a2.time ? -1 : 1 })
             .map((article) => {
             return(
-              <ArticleComponent
-                {...article}
-                key={article.id}
-              />
+              <Container sx={{marginBottom: "1rem"}}>
+                <ArticleComponent
+                  {...article}
+                  key={article.id}
+                />
+              </Container>
             )
           })}
         </Container>

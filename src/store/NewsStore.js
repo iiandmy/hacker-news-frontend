@@ -19,7 +19,7 @@ class NewsStore {
         this.setNews([])
 
         for (const articleId of articleIdList.slice(0, this.NEWS_LIMIT)) {
-            const article =  await NewsFetchService.fetchArticle(articleId)
+            const article =  await NewsFetchService.fetchItem(articleId)
             this.addArticle(article)
         }
     }

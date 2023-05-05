@@ -1,11 +1,12 @@
 import React from 'react';
 import { useEffect } from "react";
 import { observer } from "mobx-react-lite";
-import {AppBar, Box, CircularProgress, Container, IconButton, Toolbar, Typography} from "@mui/material";
+import { AppBar, Box, CircularProgress, Container, IconButton, Toolbar, Typography, Card, CardContent } from "@mui/material";
 import { ArrowBack } from "@mui/icons-material";
 import ArticleComponent from "./ArticleComponent";
 import ArticleStore from "../../store/ArticleStore";
 import { useNavigate, useParams } from 'react-router-dom';
+import { loadingCircleFormat } from '../../utils/Utils';
 
 const ArticlePage = observer(() => {
   const navigate = useNavigate()
@@ -40,16 +41,26 @@ const ArticlePage = observer(() => {
           </Toolbar>
         </AppBar>
       </Box>
-      <Container maxWidth="md" sx={{ marginTop: "2rem" }}>
+      <Container maxWidth="md" sx={{ marginY: "2rem" }}>
         {
           ArticleStore.article.time === undefined ?
-            <Container style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: "2rem" }}>
+            <Container style={loadingCircleFormat}>
               <CircularProgress />
             </Container> :
             <ArticleComponent
             {...ArticleStore.article}
           />
         }
+      </Container>
+      <Container maxWidth="md">
+        <Card>
+          <CardContent>
+            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+              Comments: {ArticleStore.article.descendants}
+            </Typography>
+          </CardContent>
+        </Card>
+        
       </Container>
     </Box>
 

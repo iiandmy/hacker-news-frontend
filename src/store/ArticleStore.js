@@ -9,7 +9,7 @@ class ArticleStore {
   }
 
   async fetchArticle(articleId) {
-    const loadedArticle = await NewsFetchService.fetchArticle(articleId)
+    const loadedArticle = await NewsFetchService.fetchItem(articleId)
     this.setArticle(loadedArticle)
   }
 
