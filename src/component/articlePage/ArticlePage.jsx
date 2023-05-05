@@ -1,7 +1,7 @@
 import React from 'react';
 import { useEffect } from "react";
 import { observer } from "mobx-react-lite";
-import { AppBar, Box, Container, IconButton, Toolbar, Typography } from "@mui/material";
+import {AppBar, Box, CircularProgress, Container, IconButton, Toolbar, Typography} from "@mui/material";
 import { ArrowBack } from "@mui/icons-material";
 import ArticleComponent from "./ArticleComponent";
 import ArticleStore from "../../store/ArticleStore";
@@ -15,9 +15,10 @@ const ArticlePage = observer(() => {
     ArticleStore.fetchArticle(params.id).catch((error) => {
       console.log(error)
     })
-  }, []);
+  }, [])
 
   const handleGoBackClick = () => {
+    ArticleStore.setArticle({})
     navigate('/')
   }
 
@@ -40,9 +41,15 @@ const ArticlePage = observer(() => {
         </AppBar>
       </Box>
       <Container maxWidth="md" sx={{ marginTop: "2rem" }}>
-        <ArticleComponent
-          {...ArticleStore.article}
-        />
+        {
+          ArticleStore.article.time === undefined ?
+            <Container style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: "2rem" }}>
+              <CircularProgress />
+            </Container> :
+            <ArticleComponent
+            {...ArticleStore.article}
+          />
+        }
       </Container>
     </Box>
 
