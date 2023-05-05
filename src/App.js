@@ -1,22 +1,14 @@
 import './App.css';
+import NewsPage from "./component/newsPage/NewsPage";
+import { Route, Routes } from 'react-router-dom';
+import ArticlePage from "./component/articlePage/ArticlePage";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Routes>
+      <Route path="/" element={<NewsPage />}/>
+      <Route path="/article/:id" element={<ArticlePage />}/>
+    </Routes>
   );
 }
 
